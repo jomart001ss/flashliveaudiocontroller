@@ -1,0 +1,6 @@
+package voicetrainer.data {	import voicetrainer.data.vo.GameStateData;	import voicetrainer.utils.IntervalHelper;		/**
+	 *	Copyright 2008 Base 42 
+	 *	@author Jankees van Woezik
+	 *  date: Jan 23, 2008
+	 */
+	public class GameStates {				private var mStates:Array;				public function GameStates() {			mStates = new Array();			mStates.push(new GameStateData("level 1, de prime", IntervalHelper.makeIntervalNameArray()[0]));				mStates.push(new GameStateData("level 2, de kwint", IntervalHelper.makeIntervalNameArray()[4]));				mStates.push(new GameStateData("level 3, de terts", IntervalHelper.makeIntervalNameArray()[2]));				mStates.push(new GameStateData("level 4, de septime", IntervalHelper.makeIntervalNameArray()[6]));				mStates.push(new GameStateData("level 5, de sext", IntervalHelper.makeIntervalNameArray()[5]));				mStates.push(new GameStateData("level 6, de kwart", IntervalHelper.makeIntervalNameArray()[3]));				mStates.push(new GameStateData("level 7, de secunde", IntervalHelper.makeIntervalNameArray()[1]));			}				public function getStates():Array {			return mStates;		}	}}
