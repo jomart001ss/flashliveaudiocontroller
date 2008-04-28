@@ -12,7 +12,7 @@ http://images.6angrymen.com/SoundController/terminal.jpg
 When this java server is running you can launch the MAX/MSP file that is located in the “maxmsp/Runtimes/” folder. It’s available for both windows and mac. We also included the MAX/MSP source code so you can change the patch the way you like.
 
 When you launch the MAX/MSP patch it should look like this: 
-http://images.6angrymen.com/SoundController/maxmsp.jpg
+[[Image:http://images.6angrymen.com/SoundController/maxmsp.jpg | 300px]]
 
 Also make sure that in your Flash Settings you can always access your microphone. You can do this by editing your global security settings and ‘add a location’. Fill in a slash (/) here.
 
@@ -29,4 +29,4 @@ The steps summarized:
   * Play!
 
 We released this project under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 Netherlands License, so please Share alike!
-http://images.6angrymen.com/SoundController/88x31.png
+http://test.inlet.nl/codegoogle/88x31.png
