@@ -7,12 +7,13 @@ First you have to checkout the package thats available on our svn-repository.
 If you’ve got the package, unzip it and use your console to start the FLOSC server;
 
 java Gateway 7000 3000
+
 http://images.6angrymen.com/SoundController/terminal.jpg
 
 When this java server is running you can launch the MAX/MSP file that is located in the “maxmsp/Runtimes/” folder. It’s available for both windows and mac. We also included the MAX/MSP source code so you can change the patch the way you like.
 
 When you launch the MAX/MSP patch it should look like this: 
-[[Image:http://images.6angrymen.com/SoundController/maxmsp.jpg | 300px]]
+http://test.inlet.nl/codegoogle/maxmsp.jpg
 
 Also make sure that in your Flash Settings you can always access your microphone. You can do this by editing your global security settings and ‘add a location’. Fill in a slash (/) here.
 
