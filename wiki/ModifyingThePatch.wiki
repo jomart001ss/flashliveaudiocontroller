@@ -1,9 +1,0 @@
-#summary Modifying the Max/MSP patch: an example with included patcher
-
-= Introduction =
-
-Goal: to modify  the original Max/MSP patch to account for different input devices. 
-
-= Details =
-
-Pitch and amplitude tracking requires the fiddle~ object both in this patch and in the original.  Make sure you have downloaded fiddle~ and moved it to 
