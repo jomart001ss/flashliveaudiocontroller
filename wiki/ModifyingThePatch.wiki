@@ -1,4 +1,4 @@
-#summary Modifying the Max/MSP: an example with included patcher
+#summary Modifying the Max/MSP patch: an example with included patcher
 
 = Introduction =
 
