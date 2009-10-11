@@ -11,7 +11,7 @@ package brick
 
 		public static const WIDTH:Number = 32;
 		public static const HEIGHT:Number = 15;
-		private var _strength:uint;
+		private var _strength:int;
 
 		public function Block(inColorNumber:uint = 0)
 		{
