@@ -1,6 +1,0 @@
-package voicetrainer.utils {	import voicetrainer.data.vo.IntervalNameData;		/**
-	 *	Copyright 2008 Base 42 
-	 *	@author Jankees van Woezik
-	 *  date: Jan 23, 2008
-	 */
-	public class IntervalHelper {				public static function makeIntervalNameArray(): Array{			var intervalNames:Array = new Array();			intervalNames.push(new IntervalNameData("prime",0)); // 0			intervalNames.push(new IntervalNameData("secunde",2)); //1			intervalNames.push(new IntervalNameData("terts",4)); //2			intervalNames.push(new IntervalNameData("kwart",5)); //3			intervalNames.push(new IntervalNameData("kwint",7)); //4			intervalNames.push(new IntervalNameData("sext",9)); //5			intervalNames.push(new IntervalNameData("septiem",11)); //6				return intervalNames;		}						public static function getIntervalNameData(inDifference:Number):IntervalNameData {			var intervalNames:Array = IntervalHelper.makeIntervalNameArray();			// modulo : (x/12 - (rechts van de komma)) * 12			var interval:Number = (inDifference % 12);						for (var i : Number = 0; i < intervalNames.length; i++) {				if(IntervalNameData(intervalNames[i]).interval_indexdistance == interval) return IntervalNameData(intervalNames[i])			}			return new IntervalNameData("onzuiver",-1);		}					}}
