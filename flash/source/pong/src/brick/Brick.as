@@ -1,11 +1,14 @@
 package brick
 {
+	import voice.VoiceDataEvent;
+
 	import fla.brick.Background;
 
 	import nl.inlet42.log.Logger;
 	import nl.inlet42.log.connectors.TrazzleConnector;
 
-	import flash.display.MovieClip;
+	import voice.BaseVoiceApplication;
+
 	import flash.display.Sprite;
 
 	/**
@@ -13,34 +16,42 @@ package brick
 	 *	@author Patrick.Brouwer (base42.nl)
 	 *	@version 2.0
 	 */
-	public class Brick extends MovieClip
+	public class Brick extends BaseVoiceApplication
 	{
 
 		private var _holder : Sprite;
-		
+		private var _game : BrickLevel;
+
 		public function Brick() 
 		{
 			Logger.addLogger(new TrazzleConnector());
 			addChild(new Background());
 			
 			_holder = new Sprite();
+			_holder.x = _holder.y = 95;
 			addChild(_holder);
 			
-			var sp:Sprite = new Sprite();
-			sp.graphics.beginFill(0xff0000);
-			sp.graphics.drawRect(0, 0, 10, 10);
-			sp.graphics.endFill();
-			
-			_holder.addChild(sp);
-			
-			drawStones();
-			
-			
+			createLevel(0);
 		}
 		
-		private function drawStones() : void
+		private function createLevel(levelNum : int) : void
 		{
+			if (_game)
+			{
+				_holder.removeChild(_game);
+				_game = null;
+			}
 			
+			_game = new BrickLevel(levelNum);
+			_holder.addChild(_game);
+		}
+
+		override protected function handleVoiceEvents(event : VoiceDataEvent) : void
+		{
+			if (_game)
+			{
+				_game.input(event.data);
+			}
 		}
 	}
 }
