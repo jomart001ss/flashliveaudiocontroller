@@ -36,6 +36,7 @@ package brick
 		private var _speedBallX:Number;
 		private var _speedBallY:Number;
 		private var _field:Field;
+		private var _blockthathasbeenhit:Block;
 
 		public function BrickLevel(levelNum:uint)
 		{
@@ -92,7 +93,11 @@ package brick
 		private function loop(event:Event):void
 		{
 			
-			_field.hitTest(_ball);
+			_blockthathasbeenhit = _field.hitTest(_ball);
+			if(_blockthathasbeenhit)
+			{
+				Logger.debug("Hit block: " + _blockthathasbeenhit);
+			}
 			
 			// speed x increment of both players
 			var pl1_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer1.pitch)) - _player1.x) * PAD_FRICTION;
