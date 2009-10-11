@@ -15,12 +15,12 @@ package
 	 *	@author Patrick.Brouwer (base42.nl)
 	 *	@version 2.0
 	 */
-	public class Main extends MovieClip
+	public class Pong extends MovieClip
 	{
 
 		private var _osc:OSCConnection;
 
-		public function Main() 
+		public function Pong() 
 		{
 			Logger.addLogger(new TrazzleConnector());
 			

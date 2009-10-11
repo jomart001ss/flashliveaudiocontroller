@@ -1,5 +1,9 @@
 ﻿package it.h_umus.osc 
 {	
+	import mx.messaging.events.MessageAckEvent;
+
+	import nl.inlet42.log.Logger;
+
 	import flash.events.DataEvent;
 	import flash.net.XMLSocket;
 
@@ -113,6 +117,7 @@
 			//trace ("\n"+node+"\n");
 			var packet:OSCPacket = new OSCPacket(node.@TIME,node.@ADDRESS,node.@PORT);
 			
+			Logger.debug("parseXml: " + node);
 			for each( var message:XML in node.MESSAGE) 
 			{
 				var oscMessage:OSCMessage = new OSCMessage(message.@NAME);
@@ -149,6 +154,9 @@
 				}
 				packet.addMessage(oscMessage);
 			}
+			
+			
+			
 			dispatchEvent(new OSCConnectionEvent(OSCConnectionEvent.OSC_PACKET_IN,packet));
 		}
 	}
