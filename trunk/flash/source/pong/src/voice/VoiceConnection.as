@@ -19,8 +19,8 @@ package voice
 		private var _packetRight:VoiceData;
 		private var _event:VoiceDataEvent;
 
-		private static const LOWEST_PITCH_FREQ:int = 125;
-		private static const HIGHEST_PITCH_FREQ:int = 650;
+		private static const LOWEST_PITCH_FREQ:int = 200;
+		private static const HIGHEST_PITCH_FREQ:int = 550;
 		
 		public function VoiceConnection()
 		{
