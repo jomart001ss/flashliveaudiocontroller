@@ -27,7 +27,6 @@ package brick
 		private static const PAD_FRICTION : Number = 0.1;
 		private static const PAD_SIDE_OFFSET : Number = 15;
 		private static const START_TIMEOUT : Number = 3;
-		private var _blockthathasbeenhit:Block;
 
 		private var _levelNum : uint;
 		private var _player1 : Pad;
@@ -102,11 +101,9 @@ package brick
 		 */
 		private function loop(event : Event) : void
 		{
-			
 			_blockthathasbeenhit = _field.hitTest(_ball);
 			if(_blockthathasbeenhit)
 			{
-				Logger.fatal("loop: " + _blockthathasbeenhit.x);
 				bounceBallOnObject(_blockthathasbeenhit);
 				_blockthathasbeenhit.tryRemove();
 			}
@@ -127,7 +124,7 @@ package brick
 				_ball.x = _player1.x + _player1.width / 2 - _ball.width / 2;
 			} else {
 				// bounce ball on edges
-				if (_ball.x <= 0 || _ball.x >= WIDTH - _ball.width) 
+				if (_ball.x < 0 || _ball.x > WIDTH - _ball.width) 
 				{
 					_ball.x = _lastX;
 					_speedBallX = -_speedBallX;
@@ -157,7 +154,7 @@ package brick
 		{
 			if (_ball.hitTestObject(obj))
 			{
-				if (_ball.y + _ball.height > obj.y + 2 && _ball.y < (obj.y + obj.height) - 2 )
+				if (_lastY + _ball.height > obj.y + 2 && _lastY < (obj.y + obj.height) - 2 )
 				{
 					// horizontal hitting
 					_ball.x = _lastX;
@@ -169,7 +166,7 @@ package brick
 				}
 			}
 		}
-
+		
 		private function handleAddedToStage(event : Event) : void
 		{
 			addEventListener(Event.ENTER_FRAME, loop);
