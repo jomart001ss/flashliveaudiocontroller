@@ -1,47 +1,39 @@
 package pong
 {
-	import voice.VoiceData;
-
-	import flash.display.DisplayObject;
-
-	import fla.pong.Pad;
 	import fla.pong.Background;
+	import fla.pong.Ball;
+	import fla.pong.Pad;
 
-	import nl.inlet42.log.Logger;
-	import nl.inlet42.log.connectors.TrazzleConnector;
-
-	import voice.VoiceConnection;
+	import voice.BaseVoiceApplication;
 	import voice.VoiceDataEvent;
 
-	import flash.display.MovieClip;
+	import flash.display.DisplayObject;
 
 	/**
 	 *	@author Jankees.van.Woezik (base42.nl)
 	 *	@author Patrick.Brouwer (base42.nl)
 	 *	@version 2.0
 	 */
-	public class Pong extends MovieClip
+	public class Pong extends BaseVoiceApplication
 	{
 
-		private var _voice:VoiceConnection;
 		private var _padLeft:Pad;
 		private var _padRight:Pad;
-		private var _voiceDataLeft:VoiceData;
-		private var _voiceDataRight:VoiceData;
 		private static const MARGIN:Number = 10;
 		private static const DEFAULT_Y_VALUE_PAD:int = 321;
+		private var _ball:Ball;
 
 		public function Pong() 
 		{
-			Logger.addLogger(new TrazzleConnector());
-			
-			_voice = new VoiceConnection();
-			_voice.addEventListener(VoiceDataEvent._EVENT,handleVoiceEvents);
+		
 			
 			var background:DisplayObject = addChild(new Background());
 			
 			_padLeft = new Pad();
 			_padRight = new Pad();
+			
+			_ball = new Ball();
+			addChild(_ball);
 			
 			_padLeft.x = MARGIN;
 			_padRight.x = background.width - MARGIN;
@@ -50,11 +42,16 @@ package pong
 			addChild(_padRight);
 		}
 
-		private function handleVoiceEvents(event:VoiceDataEvent):void
+		override protected function handleVoiceEvents(event:VoiceDataEvent):void
 		{
 			_voiceDataLeft = event.data[0];
 			_voiceDataRight = event.data[1];
 			
+			movePads();
+		}
+
+		private function movePads():void
+		{
 			if (_voiceDataLeft.pitch > 0) 
 			{
 				_padLeft.y += ((DEFAULT_Y_VALUE_PAD - _voiceDataLeft.pitch + 160) - _padLeft.y) * 0.1;    
