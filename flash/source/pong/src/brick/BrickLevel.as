@@ -106,6 +106,7 @@ package brick
 			{
 				bounceBallOnObject(_blockthathasbeenhit);
 				_blockthathasbeenhit.tryRemove();
+				return;
 			}
 			
 			// speed x increment of both players
@@ -125,17 +126,8 @@ package brick
 			else 
 			{
 				// bounce ball on edges
-				if (_ball.x < 0 || _ball.x > WIDTH - _ball.width) 
-				{
-					_ball.x = _lastX;
-					_speedBallX = -_speedBallX;
-				}
-				
-				if (_ball.y < 0) 
-				{
-					_ball.y = _lastY;
-					_speedBallY = -_speedBallY;
-				}
+				if (_ball.x < 0 || _ball.x > WIDTH - _ball.width) invertX();
+				if (_ball.y < 0) invertY();
 				
 				bounceBallOnObject(_player1);
 				bounceBallOnObject(_player2);
@@ -158,6 +150,18 @@ package brick
 			}
 		}
 
+		private function invertX() : void
+		{
+			_ball.x = _lastX;
+			_speedBallX = -_speedBallX;
+		}
+
+		private function invertY() : void
+		{
+			_ball.y = _lastY;
+			_speedBallY = -_speedBallY;
+		}
+		
 		private function resetBall():void
 		{
 			_ball.y = _player1.y - _ball.height - 10;
