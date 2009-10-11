@@ -36,7 +36,7 @@ package brick
 					break;
 			}
 			
-			_strength = inColorNumber;
+			_strength = inColorNumber >= 4 ? 0 : 1;
 			
 			graphics.beginFill(color);
 			graphics.drawRect(0,0,WIDTH,HEIGHT);
@@ -46,7 +46,7 @@ package brick
 			sp.graphics.beginFill(0xcccccc);
 			sp.graphics.drawRect(0,0,3,HEIGHT);
 			sp.graphics.drawRect(3,0,WIDTH - 6,3);
-			sp.graphics.drawRect(WIDTH-3,0,3,HEIGHT);
+			sp.graphics.drawRect(WIDTH - 3,0,3,HEIGHT);
 			sp.graphics.endFill();
 			sp.blendMode = BlendMode.MULTIPLY;
 			addChild(sp);
