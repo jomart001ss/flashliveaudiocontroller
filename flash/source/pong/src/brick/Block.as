@@ -1,5 +1,6 @@
 package brick 
 {
+	import flash.display.BlendMode;
 	import flash.display.Sprite;
 
 	/**
@@ -37,10 +38,17 @@ package brick
 			
 			_strength = inColorNumber;
 			
+			graphics.beginFill(color);
+			graphics.drawRect(0,0,WIDTH,HEIGHT);
+			graphics.endFill();
+
 			var sp:Sprite = new Sprite();
-			sp.graphics.beginFill(color);
-			sp.graphics.drawRect(0,0,WIDTH,HEIGHT);
+			sp.graphics.beginFill(0xcccccc);
+			sp.graphics.drawRect(0,0,3,HEIGHT);
+			sp.graphics.drawRect(3,0,WIDTH - 6,3);
+			sp.graphics.drawRect(WIDTH-3,0,3,HEIGHT);
 			sp.graphics.endFill();
+			sp.blendMode = BlendMode.MULTIPLY;
 			addChild(sp);
 		}
 
