@@ -1,12 +1,11 @@
 package voice 
 {
-	import flash.display.StageScaleMode;
-	import flash.display.StageAlign;
-
 	import nl.inlet42.log.Logger;
 	import nl.inlet42.log.connectors.TrazzleConnector;
 
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 
 	/**
 	 *	@author Jankees.van.Woezik
