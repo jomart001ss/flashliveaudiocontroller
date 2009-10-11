@@ -51,13 +51,16 @@ package brick
 			sp.blendMode = BlendMode.MULTIPLY;
 			addChild(sp);
 		}
+		
+		public function tryRemove() : void
+		{
+			if(_strength <= 0) parent.removeChild(this);
+		}
 
 		public function hittest(inBall:Sprite):Boolean
 		{
 			if(!inBall.hitTestObject(this)) return false;
-			
 			_strength -= 1;
-			if(_strength <= 0) parent.removeChild(this);
 			return true;
 		}
 
@@ -65,5 +68,6 @@ package brick
 		{
 			return "Block with a remaining strength of: " + _strength;
 		}
+		
 	}
 }
