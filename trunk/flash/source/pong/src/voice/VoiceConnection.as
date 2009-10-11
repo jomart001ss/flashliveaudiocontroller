@@ -19,6 +19,9 @@ package voice
 		private var _packetRight:VoiceData;
 		private var _event:VoiceDataEvent;
 
+		private static const LOWEST_PITCH_FREQ:int = 125;
+		private static const HIGHEST_PITCH_FREQ:int = 650;
+		
 		public function VoiceConnection()
 		{
 			Logger.info("Starting connection with: 127.0.0.1 on port 3000");
@@ -67,10 +70,12 @@ package voice
 		 */
 		private function dataHandler(event:DataEvent):void 
 		{
-			_packetLeft.pitch = XML(event.data).MESSAGE.ARGUMENT[0].@VALUE;
+			// 125 = 0
+			// 640 = 1
+			_packetLeft.pitch = (XML(event.data).MESSAGE.ARGUMENT[0].@VALUE - LOWEST_PITCH_FREQ) / (HIGHEST_PITCH_FREQ - LOWEST_PITCH_FREQ);
 			_packetLeft.amplitude = XML(event.data).MESSAGE.ARGUMENT[1].@VALUE;
 			 
-			_packetRight.pitch = XML(event.data).MESSAGE.ARGUMENT[2].@VALUE;
+			_packetRight.pitch = (XML(event.data).MESSAGE.ARGUMENT[2].@VALUE - LOWEST_PITCH_FREQ) / (HIGHEST_PITCH_FREQ - LOWEST_PITCH_FREQ);
 			_packetRight.amplitude = XML(event.data).MESSAGE.ARGUMENT[3].@VALUE;
 		
 			_event = new VoiceDataEvent();
