@@ -27,7 +27,6 @@ package brick
 		private static const PAD_FRICTION:Number = 0.1;
 		private static const PAD_SIDE_OFFSET:Number = 15;
 		private static const START_TIMEOUT:Number = 3;
-		
 		private var _levelNum:uint;
 		private var _player1:Pad;
 		private var _player2:Pad;
@@ -41,6 +40,7 @@ package brick
 		private var _field:Field;
 		private var _lastX:Number;
 		private var _lastY:Number;
+		private var _blockthathasbeenhit:Block;
 
 		public function BrickLevel(levelNum:uint)
 		{
@@ -51,8 +51,8 @@ package brick
 			_field = new Field(_levelNum);
 			addChild(_field);
 			
-			_speedBallX = -50;
-			_speedBallY = -50;
+			_speedBallX = -4;
+			_speedBallY = -4;
 			
 			createPads();
 			createBall();
@@ -68,8 +68,10 @@ package brick
 			_player1.y = 400;
 			_player2.y = 430;
 			
-			_player1.scaleX = 20;
-			_player2.scaleX = 20;
+			_player2.visible = false;
+			
+			_player1.scaleX = 2;
+			_player2.scaleX = 2;
 		}
 
 		private function createBall():void
@@ -118,8 +120,7 @@ package brick
 			// animate ball
 			if (!_gameStarted)
 			{
-				_ball.y = _player1.y - _ball.height - 10;
-				_ball.x = _player1.x + _player1.width / 2 - _ball.width / 2;
+				resetBall();
 			} 
 			else 
 			{
@@ -148,6 +149,19 @@ package brick
 			
 			_lastX = _ball.x;
 			_lastY = _ball.y;
+			
+			if(_ball.y > stage.stageHeight)
+			{
+				_gameStarted = false;
+				resetBall();
+				start();
+			}
+		}
+
+		private function resetBall():void
+		{
+			_ball.y = _player1.y - _ball.height - 10;
+			_ball.x = _player1.x + _player1.width / 2 - _ball.width / 2;
 		}
 
 		private function bounceBallOnObject(obj:Sprite):void
@@ -168,19 +182,24 @@ package brick
 				}
 			}
 		}
-		
+
 		private function handleAddedToStage(event:Event):void
 		{
 			addEventListener(Event.ENTER_FRAME,loop);
 			
+			start();
+		}
+		
+		private function start():void
+		{
 			_timer = new Timer(START_TIMEOUT * 1000,1);
-			_timer.addEventListener(TimerEvent.TIMER,start);
+			_timer.addEventListener(TimerEvent.TIMER,startTimerDone);
 			_timer.start();
 		}
 
-		private function start(event:TimerEvent):void
+		private function startTimerDone(event:TimerEvent):void
 		{
-			removeEventListener(TimerEvent.TIMER,start);
+			removeEventListener(TimerEvent.TIMER,startTimerDone);
 			_gameStarted = true;
 		}
 
@@ -189,7 +208,7 @@ package brick
 			removeEventListener(Event.ADDED_TO_STAGE,handleAddedToStage);
 			removeEventListener(Event.REMOVED_FROM_STAGE,handleRemovedFromStage);
 			removeEventListener(Event.ENTER_FRAME,loop);
-			removeEventListener(TimerEvent.TIMER,start);
+			removeEventListener(TimerEvent.TIMER,startTimerDone);
 		}
 	}
 }
