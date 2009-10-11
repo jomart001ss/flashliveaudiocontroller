@@ -17,35 +17,44 @@ package pong
 	public class Pong extends BaseVoiceApplication
 	{
 
-		private var _padLeft:Pad;
-		private var _padRight:Pad;
 		private static const MARGIN:Number = 10;
 		private static const DEFAULT_Y_VALUE_PAD:int = 321;
+		
+		private var _padLeft:Pad;
+		private var _padRight:Pad;
+
 		private var _ball:Ball;
+		private var _background:DisplayObject;
 
 		public function Pong() 
 		{
-		
-			
-			var background:DisplayObject = addChild(new Background());
+			_background = addChild(new Background());
 			
 			_padLeft = new Pad();
 			_padRight = new Pad();
 			
 			_ball = new Ball();
+			
+			setBallToStartPoint();
+			
 			addChild(_ball);
 			
 			_padLeft.x = MARGIN;
-			_padRight.x = background.width - MARGIN;
+			_padRight.x = _background.width - MARGIN;
 			
 			addChild(_padLeft);
 			addChild(_padRight);
 		}
 
+		private function setBallToStartPoint():void
+		{
+			_ball.x = _background.height / 2;
+			_ball.y = _background.width / 2;
+		}
+
 		override protected function handleVoiceEvents(event:VoiceDataEvent):void
 		{
-			_voiceDataLeft = event.data[0];
-			_voiceDataRight = event.data[1];
+
 			
 			movePads();
 		}

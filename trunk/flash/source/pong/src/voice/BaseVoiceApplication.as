@@ -1,5 +1,8 @@
 package voice 
 {
+	import flash.display.StageScaleMode;
+	import flash.display.StageAlign;
+
 	import nl.inlet42.log.Logger;
 	import nl.inlet42.log.connectors.TrazzleConnector;
 
@@ -15,9 +18,13 @@ package voice
 		
 		protected var _voiceDataLeft:VoiceData;
 		protected var _voiceDataRight:VoiceData;
+		
 
 		public function BaseVoiceApplication()
 		{
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			
 			Logger.addLogger(new TrazzleConnector());
             
 			_voice = new VoiceConnection();
@@ -26,6 +33,8 @@ package voice
 
 		protected function handleVoiceEvents(event:VoiceDataEvent):void
 		{
+			_voiceDataLeft = event.data[0];
+			_voiceDataRight = event.data[1];
 		}
 	}
 }
