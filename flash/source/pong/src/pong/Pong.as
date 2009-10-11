@@ -1,12 +1,17 @@
 package pong
 {
+	import fla.pong.WinnerSign;
 	import fla.pong.Background;
+	import fla.pong.CounterDisplay;
 	import fla.pong.Pad;
+
+	import gs.TweenLite;
 
 	import voice.BaseVoiceApplication;
 	import voice.VoiceDataEvent;
 
 	import flash.display.DisplayObject;
+	import flash.events.Event;
 
 	/**
 	 *	@author Jankees.van.Woezik (base42.nl)
@@ -21,27 +26,96 @@ package pong
 		private var _padRight:Pad;
 		private var _ball:PongBall;
 		private var _background:DisplayObject;
+		private var _displayLeft:CounterDisplay;
+		private var _displayRight:CounterDisplay;
+		private var _winnerSign:WinnerSign;
+		private static const SCORE_TO_WIN:Number = 10;
 
 		public function Pong() 
 		{
 			_background = addChild(new Background());
 			
-			_padLeft = new Pad();
-			_padRight = new Pad();
+			_padLeft = new PongPad();
+			_padRight = new PongPad();
 			
 			_ball = new PongBall();
 			_ball.addPlayers(_padLeft,_padRight);
 			
 			addChild(_ball);
 			
-			
 			_padLeft.x = MARGIN;
 			_padRight.x = _background.width - MARGIN;
+			
+			_padLeft.addEventListener(PongBall.SCORE_EVENT,score);
+			_padRight.addEventListener(PongBall.SCORE_EVENT,score);
+			
+			_displayLeft = new CounterDisplay();
+			_displayRight = new CounterDisplay();
+			
+			addChild(_displayLeft);
+			addChild(_displayRight);
 			
 			addChild(_padLeft);
 			addChild(_padRight);
 			
+			_displayLeft.x = 220;
+			_displayLeft.y = 60;
+			_displayRight.x = _displayLeft.x + 210;
+			_displayRight.y = 60;
+			
+			_winnerSign = new WinnerSign();
+			_winnerSign.x = stage.stageWidth / 2;
+			_winnerSign.y = stage.stageHeight / 2;
+			_winnerSign.visible = false;
+			addChild(_winnerSign);
+			
 			start();
+		}
+
+		private function score(event:Event):void
+		{
+			if(event.target == _padLeft)
+			{
+				setDisplay(Number(_displayLeft.counter.text),Number(_displayRight.counter.text) + 1);
+			}else if(event.target == _padRight)
+			{
+				setDisplay(Number(_displayLeft.counter.text) + 1,Number(_displayRight.counter.text));
+			}
+			if(Number(_displayLeft.counter.text) >= SCORE_TO_WIN || Number(_displayRight.counter.text) >= SCORE_TO_WIN)
+			{
+				//we have a winner
+				if(Number(_displayLeft.counter.text) > Number(_displayRight.counter.text))
+				{
+					_winnerSign.tHeader.text = "LEFT WINS!";
+				}
+				else
+				{
+					_winnerSign.tHeader.text = "RIGHT WINS!";
+				}
+				_winnerSign.tTime.text = "10";
+				
+				_winnerSign.visible = true;
+				
+				TweenLite.delayedCall(1,countDown);
+			}
+			else
+			{
+				TweenLite.delayedCall(1,_ball.start,[event.target == _padLeft]);
+			}
+		}
+		
+		private function countDown():void
+		{
+			if(Number(_winnerSign.tTime.text) <= 0)
+			{
+				_winnerSign.visible = false;
+				start();
+			}
+			else{
+				TweenLite.delayedCall(1,countDown);
+			}
+			_winnerSign.tTime.text = "0" + (Number(_winnerSign.tTime.text)-1);
+			 
 		}
 
 		override protected function handleVoiceEvents(event:VoiceDataEvent):void
@@ -53,7 +127,18 @@ package pong
 
 		private function start():void
 		{ 
+			setDisplay(0,0);
 			_ball.start();
+		}
+
+		private function setDisplay(inLeft:Number,inRight:Number):void
+		{
+			
+			_displayLeft.counter.text = String(inLeft);
+			_displayRight.counter.text = String(inRight);
+			
+			if(inLeft < 10) _displayLeft.counter.text = 0 + _displayLeft.counter.text;
+			if(inRight < 10) _displayRight.counter.text = 0 + _displayRight.counter.text;
 		}
 
 		private function movePads():void

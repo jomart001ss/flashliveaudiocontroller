@@ -2,29 +2,25 @@ package pong
 {
 	import fla.pong.Ball;
 
-	import nl.inlet42.log.Logger;
-
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
 	import flash.geom.Point;
-	import flash.utils.Timer;
 
 	public class PongBall extends Ball 
 	{
 
+		private static const EXTRA_SPEED_PER_BOUNCE:Number = 2;
+		private static const INITIAL_SPEED:Number = 2;
+		//
 		private var _padLeft:Sprite;
 		private var _padRight:Sprite;
-		private var mTimer:Timer;
-		private var toRight:Boolean;
 		private var _direction:Point;
-		private static const EXTRA_SPEED_PER_BOUNCE:Number = 6;
-		private var _timer:Timer;
-		private static const INITIAL_SPEED:Number = 2;
+		private var _toRight:Boolean;
+		//
+		public static const SCORE_EVENT:String = "pong_score";
 
 		public function PongBall() 
 		{
-			mTimer = new Timer(1000);
 			_direction = new Point();
 		}
 
@@ -34,9 +30,11 @@ package pong
 			_padRight = right;
 		}
 
-		public function start():void 
+		public function start(toRight:Boolean = true):void 
 		{
+			_toRight = toRight;
 			reset();
+			addEventListener(Event.ENTER_FRAME,handleEnterFrame);
 		}
 
 		private function handleEnterFrame(event:Event):void
@@ -47,12 +45,19 @@ package pong
 		private function moveBall():void
 		{
 			//bounce to top and bottom
-			if (y <= 0 || y >= stage.stageHeight) _direction.y = -(_direction.y);
+			if (y <= 0 || y >= stage.stageHeight)
+			{
+				_direction.y = -(_direction.y);
+			}
 			
+			//if (x <= 0 || x >= stage.stageWidth)
+			//bounce to pads
 			if (hitTestObject(_padLeft) || hitTestObject(_padRight)) 
 			{
 				//speed up
-				_direction.x = _direction.x < 0 ? -EXTRA_SPEED_PER_BOUNCE : EXTRA_SPEED_PER_BOUNCE;
+				_direction.x += _direction.x < 0 ? -EXTRA_SPEED_PER_BOUNCE : EXTRA_SPEED_PER_BOUNCE;
+                
+				x += x > stage.stageWidth / 2 ? -10 : 10;
 
 				//bounce
 				_direction.x = -(_direction.x);
@@ -60,7 +65,14 @@ package pong
 			
 			if (x <= -10 || x >= stage.stageWidth + 10)
 			{
-				Logger.debug("SCORE");
+				if(x < stage.width / 2)
+				{
+					_padLeft.dispatchEvent(new Event(SCORE_EVENT));
+				}
+				else
+				{
+					_padRight.dispatchEvent(new Event(SCORE_EVENT));
+				}
 				reset();
 			}
 			
@@ -75,10 +87,7 @@ package pong
 			x = stage.stageWidth / 2;
 			y = stage.stageHeight / 2;
 			
-			
-			toRight = !toRight;
-			
-			if(toRight)
+			if(_toRight)
 			{
 				_direction.x = INITIAL_SPEED;
 				_direction.y = INITIAL_SPEED;
@@ -88,19 +97,6 @@ package pong
 				_direction.x = -INITIAL_SPEED;
 				_direction.y = -INITIAL_SPEED;
 			}
-
-			_timer = new Timer(1000,1);
-			_timer.addEventListener(TimerEvent.TIMER,startMoving,false,0,true);	
-			_timer.start();	
-		}
-
-		private function startMoving(event:TimerEvent):void
-		{
-			_timer.removeEventListener(TimerEvent.TIMER,startMoving);
-			_timer = null;
-			
-			Logger.debug("startMoving: ");
-			addEventListener(Event.ENTER_FRAME,handleEnterFrame);
 		}
 	}
 }
