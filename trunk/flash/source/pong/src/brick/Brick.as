@@ -1,13 +1,9 @@
 package brick
 {
-	import voice.VoiceDataEvent;
-
 	import fla.brick.Background;
 
-	import nl.inlet42.log.Logger;
-	import nl.inlet42.log.connectors.TrazzleConnector;
-
 	import voice.BaseVoiceApplication;
+	import voice.VoiceDataEvent;
 
 	import flash.display.Sprite;
 
@@ -24,7 +20,6 @@ package brick
 
 		public function Brick() 
 		{
-			Logger.addLogger(new TrazzleConnector());
 			addChild(new Background());
 			
 			_holder = new Sprite();
