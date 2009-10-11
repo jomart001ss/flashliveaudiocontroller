@@ -1,5 +1,7 @@
 package brick 
 {
+	import util.NumberUtils;
+
 	import flash.display.Sprite;
 
 	/**
@@ -9,10 +11,17 @@ package brick
 	{
 
 		private var _levelNumber:Number;
+		private var _randomField:Boolean;
+		private var blockStyle:int;
+		private var _blocks:Array;
 
 		public function Field(inLevelNumber:Number)
 		{
 			_levelNumber = inLevelNumber;
+			
+			_blocks = [];
+			
+			_randomField = true;
 
 			var leni:uint = BrickLevel.WIDTH / (Block.WIDTH + 5);
 			for (var i:uint = 0;i < leni;i ++) 
@@ -20,7 +29,14 @@ package brick
 				var lenj:uint = 5;
 				for (var j:uint = 0;j < lenj;j ++) 
 				{
-					var block:Block = new Block(5 - j);
+					blockStyle = 5 - j;
+					if(_randomField)
+					{
+						blockStyle = NumberUtils.randomBetween(0,5);
+					}
+					
+					var block:Block = new Block(blockStyle);
+					_blocks.push(block);
 					block.x = i * (Block.WIDTH + 5); 
 					block.y = j * (Block.HEIGHT + 5); 
 					addChild(block);
@@ -47,6 +63,11 @@ package brick
 				}
 			}
 			return null;
+		}
+		
+		public function getBlocks():Array
+		{
+			return _blocks;
 		}
 	}
 }
