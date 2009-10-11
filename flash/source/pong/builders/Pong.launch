@@ -2,8 +2,9 @@
 <launchConfiguration type="com.powerflasher.fdt.ui.MxmlcGroup">
 <stringAttribute key="APP_ARGUMENTS" value=""/>
 <stringAttribute key="ARGUMENTS" value="-default-size 550 400 -default-frame-rate 31 -default-background-color 0xFFFFFF -library-path {flexSDK}/frameworks/locale/en_US -verbose-stacktraces=true"/>
+<stringAttribute key="FLEX_SDK_LOCATION" value="/Applications/FDTEnterprise/plugins/com.powerflasher.fdt.shippedflex_3.3.0.4852_1000/flex"/>
 <stringAttribute key="FLEX_SDK_NAME" value="Flex_3_SDK_0"/>
-<stringAttribute key="MAIN_CLASS" value="src/Pong.as"/>
+<stringAttribute key="MAIN_CLASS" value="src/pong/Pong.as"/>
 <stringAttribute key="OUTPUT" value="pong.swf"/>
 <booleanAttribute key="PASS_CP" value="true"/>
 <booleanAttribute key="PASS_MAIN_CLASS" value="true"/>
@@ -15,10 +16,9 @@
 <stringAttribute key="PROJECT_NAME" value="VoicePong"/>
 <stringAttribute key="PUBLISHER_ID" value=""/>
 <booleanAttribute key="START_SWF_ENABLED" value="true"/>
-<stringAttribute key="START_SWF_LOCATION" value="Main.swf"/>
+<stringAttribute key="START_SWF_LOCATION" value="pong.swf"/>
 <stringAttribute key="START_SWF_WITH" value="External SWF Viewer"/>
 <booleanAttribute key="USE_GLOBAL_FCSH_LOCATION" value="true"/>
-<stringAttribute key="bad_container_name" value="/VoicePong/builder"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/VoicePong"/>
 </listAttribute>
