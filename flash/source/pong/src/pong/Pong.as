@@ -57,14 +57,14 @@ package pong
 			
 			if (_voiceDataLeft.pitch > 0) 
 			{
-				_padLeft.y = DEFAULT_Y_VALUE_PAD - _voiceDataLeft.pitch + 160;    
+				_padLeft.y += ((DEFAULT_Y_VALUE_PAD - _voiceDataLeft.pitch + 160) - _padLeft.y) * 0.1;    
 				_padLeft.scaleY = (_voiceDataLeft.amplitude / 80);    
 			}
             
 			if (_voiceDataRight.pitch > 0) 
 			{
-				_padLeft.y = DEFAULT_Y_VALUE_PAD - _voiceDataRight.pitch + 160;    
-				_padLeft.scaleY = (_voiceDataRight.amplitude / 80);    
+				_padRight.y += ((DEFAULT_Y_VALUE_PAD - _voiceDataRight.pitch + 160) - _padRight.y) * 0.1;    
+				_padRight.scaleY = (_voiceDataRight.amplitude / 80);    
 			}
 		}
 	}
