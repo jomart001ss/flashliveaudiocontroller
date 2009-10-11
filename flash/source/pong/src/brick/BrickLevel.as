@@ -1,13 +1,14 @@
 package brick 
 {
-	import flash.events.TimerEvent;
-
 	import fla.brick.Pad;
+
+	import nl.inlet42.log.Logger;
 
 	import voice.VoiceData;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 
 	/**
@@ -44,8 +45,8 @@ package brick
 			_voiceDataPlayer1 = new VoiceData(0, 0);
 			_voiceDataPlayer2 = new VoiceData(0, 0);
 			
-			_speedBallX = -1;
-			_speedBallY = -1;
+			_speedBallX = -2;
+			_speedBallY = -2;
 			
 			createPads();
 			createBall();
@@ -131,14 +132,29 @@ package brick
 					_speedBallX = -_speedBallX;
 				} else {
 					// speed offset sides of the pad
-//					if (_ball)
-//					{
-//											
-//					}
+					if (_ball.x + _ball.width > pad.x && _ball.x + _ball.width < pad.x + PAD_SIDE_OFFSET)
+					{
+						// left side
+						Logger.fatal("bounceBallOnPad: LEFT SIDE HIT");
+						if (_speedBallX > 0) 
+						{
+							_speedBallY *= 0.5;
+						}
+						
+						if (_speedBallX < 0) 
+						{
+							_speedBallY /= 0.5;
+						}
+					}
+					
+					if (_ball.x < pad.x + pad.width && _ball.x > pad.x + pad.width - PAD_SIDE_OFFSET)
+					{
+						// right side
+					}
 					
 					// vertical bouncing, reset pos
-					if (_ball.y < pad.y + pad.height / 2) _ball.y = pad.y - _ball.height - 1; 
-					if (_ball.y > pad.y + pad.height / 2) _ball.y = pad.y + pad.height + 1;
+					if (_ball.y < pad.y + pad.height * 0.5) _ball.y = pad.y - _ball.height - 1; 
+					if (_ball.y > pad.y + pad.height * 0.5) _ball.y = pad.y + pad.height + 1;
 							
 					_speedBallY = -_speedBallY;
 				}
