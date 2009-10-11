@@ -31,7 +31,7 @@ package brick
 			y = 15;
 		}
 
-		public function hitTest(inBall:Sprite):void
+		public function hitTest(inBall:Sprite):Block
 		{
 			var child:Block;
 			var leni:uint = numChildren;
@@ -40,12 +40,13 @@ package brick
 				try 
 				{
 					child = Block(getChildAt(i));
-					child.hittest(inBall);
+					if(child.hittest(inBall)) return child;
 				} catch (e:Error) 
 				{
 					// a object has been removed so there is one i to much
 				}
 			}
+			return null;
 		}
 	}
 }

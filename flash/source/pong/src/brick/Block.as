@@ -44,15 +44,18 @@ package brick
 			addChild(sp);
 		}
 
-		public function hittest(inBall:Sprite):void
+		public function hittest(inBall:Sprite):Boolean
 		{
-			if(!inBall.hitTestObject(this)) return;
+			if(!inBall.hitTestObject(this)) return false;
 			
 			_strength -= 1;
-			if(_strength <= 0)
-			{
-				parent.removeChild(this);
-			}
+			if(_strength <= 0) parent.removeChild(this);
+			return true;
+		}
+
+		override public function toString():String 
+		{
+			return "Block with a remaining strength of: " + _strength;
 		}
 	}
 }
