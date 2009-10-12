@@ -113,10 +113,11 @@ package brick
 			var pl1_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer1.pitch)) - _player1.x) * PAD_FRICTION;
 			var pl2_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer2.pitch)) - _player2.x) * PAD_FRICTION;
 			
-			//			_player1.x += pl1_speedX;
-			//			_player2.x += pl2_speedX;
-			_player1.x = mouseX;
-			_player2.x = mouseX - 100;
+			_player1.x += pl1_speedX;
+			_player2.x += pl2_speedX;
+			
+//			_player1.x = mouseX;
+//			_player2.x = mouseX - 100;
 			
 			// animate ball
 			if (!_gameStarted)
@@ -150,18 +151,18 @@ package brick
 			}
 		}
 
-		private function invertX() : void
+		private function invertX():void
 		{
 			_ball.x = _lastX;
 			_speedBallX = -_speedBallX;
 		}
 
-		private function invertY() : void
+		private function invertY():void
 		{
 			_ball.y = _lastY;
 			_speedBallY = -_speedBallY;
 		}
-		
+
 		private function resetBall():void
 		{
 			_ball.y = _player1.y - _ball.height - 10;
@@ -193,7 +194,7 @@ package brick
 			
 			start();
 		}
-		
+
 		private function start():void
 		{
 			_timer = new Timer(START_TIMEOUT * 1000,1);
