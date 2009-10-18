@@ -1,5 +1,6 @@
 package brick
 {
+	import flash.events.Event;
 	import fla.brick.Background;
 
 	import voice.BaseVoiceApplication;
@@ -20,6 +21,22 @@ package brick
 
 		public function Brick() 
 		{
+			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
+		}
+		
+		private function removedFromStage(event : Event) : void
+		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
+			if (_game)
+			{
+				_game = null;
+			}
+		}
+
+		private function addedToStage(event : Event) : void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
 			addChild(new Background());
 			
 			_holder = new Sprite();
@@ -28,7 +45,7 @@ package brick
 			
 			createLevel(0);
 		}
-		
+
 		private function createLevel(levelNum : int) : void
 		{
 			if (_game)

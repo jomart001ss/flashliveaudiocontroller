@@ -2,8 +2,6 @@ package brick
 {
 	import fla.brick.Pad;
 
-	import nl.inlet42.log.Logger;
-
 	import util.NumberUtils;
 
 	import voice.VoiceData;

@@ -34,7 +34,7 @@ package pong
 		{
 			_toRight = toRight;
 			reset();
-			addEventListener(Event.ENTER_FRAME,handleEnterFrame);
+			addEventListener(Event.ENTER_FRAME,handleEnterFrame, false, 0, true);
 		}
 
 		private function handleEnterFrame(event:Event):void
@@ -98,5 +98,12 @@ package pong
 				_direction.y = -INITIAL_SPEED;
 			}
 		}
+
+		public function dispose() : void
+		{
+			removeEventListener(Event.ENTER_FRAME,handleEnterFrame);
+		}
+		
+		
 	}
 }
