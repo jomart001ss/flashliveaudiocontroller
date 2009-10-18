@@ -1,5 +1,6 @@
 package voice 
 {
+	import flash.events.Event;
 	import nl.inlet42.log.Logger;
 	import nl.inlet42.log.connectors.TrazzleConnector;
 
@@ -22,6 +23,13 @@ package voice
             
 			_voice = new VoiceConnection();
 			_voice.addEventListener(VoiceDataEvent._EVENT,handleVoiceEvents);
+			
+			addEventListener(Event.REMOVED_FROM_STAGE, dispose);
+		}
+		
+		private function dispose(event:Event):void
+		{
+			_voice.removeEventListener(VoiceDataEvent._EVENT,handleVoiceEvents);
 		}
 
 		protected function handleVoiceEvents(event:VoiceDataEvent):void
