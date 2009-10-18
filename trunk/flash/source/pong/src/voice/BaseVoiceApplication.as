@@ -27,8 +27,9 @@ package voice
 			addEventListener(Event.REMOVED_FROM_STAGE, dispose);
 		}
 		
-		private function dispose(event:Event):void
+		protected function dispose(event:Event):void
 		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, dispose);
 			_voice.removeEventListener(VoiceDataEvent._EVENT,handleVoiceEvents);
 		}
 
