@@ -27,7 +27,6 @@ package brick
 		private static const START_TIMEOUT:Number = 3;
 		private var _levelNum:uint;
 		private var _player1:Pad;
-		private var _player2:Pad;
 		private var _voiceDataPlayer1:VoiceData;
 		private var _voiceDataPlayer2:VoiceData;
 		private var _ball:Sprite;
@@ -62,14 +61,8 @@ package brick
 		private function createPads():void
 		{
 			_player1 = addChild(new Pad()) as Pad;
-			_player2 = addChild(new Pad()) as Pad;
 			_player1.y = 400;
-			_player2.y = 430;
-			
-			_player2.visible = false;
-			
 			_player1.scaleX = 2;
-			_player2.scaleX = 2;
 		}
 
 		private function createBall():void
@@ -109,13 +102,9 @@ package brick
 			
 			// speed x increment of both players
 			var pl1_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer1.pitch)) - _player1.x) * PAD_FRICTION;
-			var pl2_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer2.pitch)) - _player2.x) * PAD_FRICTION;
+			var pl2_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer2.pitch)) - _player1.x) * PAD_FRICTION;
 			
-			_player1.x += pl1_speedX;
-			_player2.x += pl2_speedX;
-			
-//			_player1.x = mouseX;
-//			_player2.x = mouseX - 100;
+			_player1.x += (pl1_speedX + pl2_speedX)*0.5;
 			
 			// animate ball
 			if (!_gameStarted)
@@ -129,7 +118,6 @@ package brick
 				if (_ball.y < 0) invertY();
 				
 				bounceBallOnObject(_player1);
-				bounceBallOnObject(_player2);
 				
 				_speedBallX = NumberUtils.limit(_speedBallX,-8,8);
 				_speedBallY = NumberUtils.limit(_speedBallY,-8,8);
