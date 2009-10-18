@@ -1,11 +1,9 @@
 package pong
 {
-	import util.NumberUtils;
-
-	import fla.pong.WinnerSign;
 	import fla.pong.Background;
 	import fla.pong.CounterDisplay;
 	import fla.pong.Pad;
+	import fla.pong.WinnerSign;
 
 	import gs.TweenLite;
 
@@ -39,17 +37,18 @@ package pong
 		public function Pong() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE,addedToStage);
-			addEventListener(Event.REMOVED_FROM_STAGE,removedFromStage);
 		}
 
-		private function removedFromStage(event:Event):void
+		override protected function dispose(event:Event):void
 		{
-			removeEventListener(Event.REMOVED_FROM_STAGE,removedFromStage);
+			super.dispose(event);
 			if (_ball)
 			{
 				_ball.dispose();
 				_ball = null;
 			}
+			TweenLite.killDelayedCallsTo(countDown);
+			TweenLite.killDelayedCallsTo(1,_ball.start);
 		}
 
 		private function addedToStage(event:Event):void
@@ -58,8 +57,8 @@ package pong
 			
 			_background = addChild(new Background());
 			
-			_padLeft = new PongPad();
-			_padRight = new PongPad();
+			_padLeft = new Pad();
+			_padRight = new Pad();
 			
 			_ball = new PongBall();
 			_ball.addPlayers(_padLeft,_padRight);
