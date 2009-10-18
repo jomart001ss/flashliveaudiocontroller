@@ -166,21 +166,16 @@ package pong
 
 		private function movePads():void
 		{
-			var newY:Number;
 			if (_voiceDataLeft.pitch > 0) 
 			{
 				_padLeft.scaleY = (_voiceDataLeft.amplitude / 80);    
-				newY = _padLeft.y + (calculateNewVerticalPosition(_voiceDataLeft.pitch) - _padLeft.y) * 0.1;
-				newY = NumberUtils.limit(newY,(_padLeft.height/2),GAME_HEIGHT - (_padLeft.height/2));    
-				_padLeft.y = newY;
+				_padLeft.y += (calculateNewVerticalPosition(_voiceDataLeft.pitch) - _padLeft.y) * 0.1;
 			}
             
 			if (_voiceDataRight.pitch > 0) 
 			{
 				_padRight.scaleY = (_voiceDataRight.amplitude / 80);    
-				newY = _padRight.y + (calculateNewVerticalPosition(_voiceDataRight.pitch) - _padRight.y) * 0.1;
-				newY = NumberUtils.limit(newY,(_padRight.height/2),GAME_HEIGHT - (_padRight.height/2));
-				_padRight.y = newY;
+				_padRight.y += (calculateNewVerticalPosition(_voiceDataRight.pitch) - _padRight.y) * 0.1;
 			}
 		}
 
