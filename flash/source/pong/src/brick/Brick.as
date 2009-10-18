@@ -21,22 +21,20 @@ package brick
 
 		public function Brick() 
 		{
-			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
 		}
-		
-		private function removedFromStage(event : Event) : void
+
+		override protected function dispose(event : Event) : void
 		{
-			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
+			super.dispose(event);
 			if (_game)
 			{
 				_game = null;
 			}
 		}
 
-		private function addedToStage(event : Event) : void
+		override protected function addedToStage(event : Event) : void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			super.addedToStage(event);
 			addChild(new Background());
 			
 			_holder = new Sprite();

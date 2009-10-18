@@ -24,9 +24,15 @@ package voice
 			_voice = new VoiceConnection();
 			_voice.addEventListener(VoiceDataEvent._EVENT,handleVoiceEvents);
 			
-			addEventListener(Event.REMOVED_FROM_STAGE, dispose);
+			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}
 		
+		protected function addedToStage(event : Event) : void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			addEventListener(Event.REMOVED_FROM_STAGE, dispose);
+		}
+
 		protected function dispose(event:Event):void
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, dispose);
