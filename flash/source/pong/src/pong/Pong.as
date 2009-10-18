@@ -169,16 +169,18 @@ package pong
 			var newY:Number;
 			if (_voiceDataLeft.pitch > 0) 
 			{
-				newY = _padLeft.y + (calculateNewVerticalPosition(_voiceDataLeft.pitch) - _padLeft.y) * 0.1;
-				newY = NumberUtils.limit(newY,0,GAME_HEIGHT);    
 				_padLeft.scaleY = (_voiceDataLeft.amplitude / 80);    
+				newY = _padLeft.y + (calculateNewVerticalPosition(_voiceDataLeft.pitch) - _padLeft.y) * 0.1;
+				newY = NumberUtils.limit(newY,0,GAME_HEIGHT - _padLeft.height);    
+				_padLeft.y = newY;
 			}
             
 			if (_voiceDataRight.pitch > 0) 
 			{
-				newY = _padRight.y + (calculateNewVerticalPosition(_voiceDataRight.pitch) - _padRight.y) * 0.1;
-				_padRight.y = newY;
 				_padRight.scaleY = (_voiceDataRight.amplitude / 80);    
+				newY = _padRight.y + (calculateNewVerticalPosition(_voiceDataRight.pitch) - _padRight.y) * 0.1;
+				newY = NumberUtils.limit(newY,0,GAME_HEIGHT - _padRight.height);
+				_padRight.y = newY;
 			}
 		}
 
