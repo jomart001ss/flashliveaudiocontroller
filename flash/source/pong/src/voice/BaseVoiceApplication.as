@@ -4,8 +4,6 @@ package voice
 	import nl.inlet42.log.connectors.TrazzleConnector;
 
 	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
 
 	/**
 	 *	@author Jankees.van.Woezik
@@ -21,9 +19,6 @@ package voice
 
 		public function BaseVoiceApplication()
 		{
-			stage.align = StageAlign.TOP_LEFT;
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			
 			Logger.addLogger(new TrazzleConnector());
             
 			_voice = new VoiceConnection();

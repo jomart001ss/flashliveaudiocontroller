@@ -103,7 +103,7 @@ package pong
 				TweenLite.delayedCall(1,_ball.start,[event.target == _padLeft]);
 			}
 		}
-		
+
 		private function countDown():void
 		{
 			if(Number(_winnerSign.tTime.text) <= 0)
@@ -111,11 +111,11 @@ package pong
 				_winnerSign.visible = false;
 				start();
 			}
-			else{
+			else
+			{
 				TweenLite.delayedCall(1,countDown);
 			}
-			_winnerSign.tTime.text = "0" + (Number(_winnerSign.tTime.text)-1);
-			 
+			_winnerSign.tTime.text = "0" + (Number(_winnerSign.tTime.text) - 1);
 		}
 
 		override protected function handleVoiceEvents(event:VoiceDataEvent):void
