@@ -87,8 +87,8 @@ package pong
 			_displayRight.y = 60;
 			
 			_winnerSign = new WinnerSign();
-			_winnerSign.x = stage.stageWidth / 2;
-			_winnerSign.y = stage.stageHeight / 2;
+			_winnerSign.x = GAME_WIDTH / 2;
+			_winnerSign.y = GAME_HEIGHT / 2;
 			_winnerSign.visible = false;
 			addChild(_winnerSign);
 			
