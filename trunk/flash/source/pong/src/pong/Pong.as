@@ -33,6 +33,24 @@ package pong
 
 		public function Pong() 
 		{
+			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
+		}
+		
+		private function removedFromStage(event : Event) : void
+		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
+			if (_ball)
+			{
+				_ball.dispose();
+				_ball = null;
+			}
+		}
+
+		private function addedToStage(event : Event) : void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			
 			_background = addChild(new Background());
 			
 			_padLeft = new PongPad();
