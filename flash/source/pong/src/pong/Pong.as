@@ -169,7 +169,6 @@ package pong
 			var newY:Number;
 			if (_voiceDataLeft.pitch > 0) 
 			{
-				
 				newY = _padLeft.y + (calculateNewVerticalPosition(_voiceDataLeft.pitch) - _padLeft.y) * 0.1;
 				newY = NumberUtils.limit(newY,0,GAME_HEIGHT);    
 				_padLeft.scaleY = (_voiceDataLeft.amplitude / 80);    
@@ -186,6 +185,8 @@ package pong
 		private function calculateNewVerticalPosition(inPitch:Number):Number
 		{
 			return stage.stageHeight - (stage.stageHeight * inPitch);
+			
+			return 0;
 		}
 	}
 }
