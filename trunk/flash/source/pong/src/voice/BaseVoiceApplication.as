@@ -16,7 +16,6 @@ package voice
 		protected var _voiceDataLeft:VoiceData;
 		protected var _voiceDataRight:VoiceData;
 		
-
 		public function BaseVoiceApplication()
 		{
 			Logger.addLogger(new TrazzleConnector());
