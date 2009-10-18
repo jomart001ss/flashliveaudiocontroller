@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com.powerflasher.fdt.ui.MxmlcGroup">
 <stringAttribute key="APP_ARGUMENTS" value=""/>
-<stringAttribute key="ARGUMENTS" value="-default-size 800 600 -default-frame-rate 61 -default-background-color 0xFFFFFF -library-path {flexSDK}/frameworks/locale/en_US -verbose-stacktraces=true"/>
+<stringAttribute key="ARGUMENTS" value="-default-size 800 600 -default-frame-rate 61 -default-background-color 0x000000 -library-path {flexSDK}/frameworks/locale/en_US -verbose-stacktraces=true"/>
 <stringAttribute key="FLEX_SDK_LOCATION" value="/Applications/FDTEnterprise/plugins/com.powerflasher.fdt.shippedflex_3.3.0.4852_1001/flex"/>
 <stringAttribute key="FLEX_SDK_NAME" value="Flex_3_SDK_0"/>
 <stringAttribute key="MAIN_CLASS" value="src/brick/Brick.as"/>

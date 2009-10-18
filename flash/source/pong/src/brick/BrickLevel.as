@@ -109,17 +109,17 @@ package brick
 			
 			var averageX : Number = (player1_newX + player2_newX) * 0.5;
 			
-			if (_voiceDataPlayer1.pitch == 0)
+			if (_voiceDataPlayer1.amplitude == 0)
 			{
 				_player1.x += (player2_newX - _player1.x) * PAD_FRICTION;
 			}
-			else if (_voiceDataPlayer2.pitch == 0)
+			else if (_voiceDataPlayer2.amplitude == 0)
 			{
 				_player1.x += (player1_newX - _player1.x) * PAD_FRICTION;
 			} 
 			else 
 			{
-				_player1.x += (averageX - _player1.x) * 0.3;
+				_player1.x += (averageX - _player1.x) * PAD_FRICTION;
 			}
 			
 			// animate ball
