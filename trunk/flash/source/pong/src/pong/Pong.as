@@ -7,6 +7,8 @@ package pong
 
 	import gs.TweenLite;
 
+	import util.NumberUtils;
+
 	import voice.BaseVoiceApplication;
 	import voice.VoiceDataEvent;
 
@@ -36,25 +38,25 @@ package pong
 
 		public function Pong() 
 		{
-			addEventListener(Event.ADDED_TO_STAGE,addedToStage);
 		}
 
 		override protected function dispose(event:Event):void
 		{
 			super.dispose(event);
+			
 			if (_ball)
 			{
+				TweenLite.killDelayedCallsTo(_ball.start);
 				_ball.dispose();
 				_ball = null;
 			}
+			
 			TweenLite.killDelayedCallsTo(countDown);
-			TweenLite.killDelayedCallsTo(1,_ball.start);
 		}
 
-		private function addedToStage(event:Event):void
+		override protected function addedToStage(event : Event) : void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE,addedToStage);
-			
+			super.addedToStage(event);
 			_background = addChild(new Background());
 			
 			_padLeft = new Pad();
@@ -93,6 +95,7 @@ package pong
 			
 			start();
 		}
+
 
 		private function score(event:Event):void
 		{
@@ -165,16 +168,21 @@ package pong
 
 		private function movePads():void
 		{
+			var newY:Number;
 			if (_voiceDataLeft.pitch > 0) 
 			{
 				_padLeft.scaleY = (_voiceDataLeft.amplitude / 80);    
-				_padLeft.y += (calculateNewVerticalPosition(_voiceDataLeft.pitch) - _padLeft.y) * 0.1;
+				newY = _padLeft.y + (calculateNewVerticalPosition(_voiceDataLeft.pitch) - _padLeft.y) * 0.1;
+				newY = NumberUtils.limit(newY,(_padLeft.height/2),GAME_HEIGHT - (_padLeft.height/2));    
+				_padLeft.y = newY;
 			}
             
 			if (_voiceDataRight.pitch > 0) 
 			{
 				_padRight.scaleY = (_voiceDataRight.amplitude / 80);    
-				_padRight.y += (calculateNewVerticalPosition(_voiceDataRight.pitch) - _padRight.y) * 0.1;
+				newY = _padRight.y + (calculateNewVerticalPosition(_voiceDataRight.pitch) - _padRight.y) * 0.1;
+				newY = NumberUtils.limit(newY,(_padRight.height/2),GAME_HEIGHT - (_padRight.height/2));
+				_padRight.y = newY;
 			}
 		}
 
