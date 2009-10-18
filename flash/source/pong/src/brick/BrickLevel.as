@@ -2,6 +2,8 @@ package brick
 {
 	import fla.brick.Pad;
 
+	import nl.inlet42.log.Logger;
+
 	import util.NumberUtils;
 
 	import voice.VoiceData;
@@ -23,7 +25,6 @@ package brick
 		public static const WIDTH:int = 608;
 		public static const HEIGHT:int = 540;
 		private static const PAD_FRICTION:Number = 0.1;
-		private static const PAD_SIDE_OFFSET:Number = 15;
 		private static const START_TIMEOUT:Number = 3;
 		private var _levelNum:uint;
 		private var _player1:Pad;
@@ -101,10 +102,13 @@ package brick
 			}
 			
 			// speed x increment of both players
-			var pl1_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer1.pitch)) - _player1.x) * PAD_FRICTION;
-			var pl2_speedX:Number = (Math.min(WIDTH,Math.max(0,WIDTH * _voiceDataPlayer2.pitch)) - _player1.x) * PAD_FRICTION;
+			var player1_newX : Number = (WIDTH - _player1.width) * _voiceDataPlayer1.pitch;
+			var player2_newX : Number = (WIDTH - _player1.width) * _voiceDataPlayer2.pitch;
+			player1_newX = NumberUtils.limit(player1_newX, 0, WIDTH - _player1.width);
+			player2_newX = NumberUtils.limit(player2_newX, 0, WIDTH - _player1.width);
 			
-			_player1.x += (pl1_speedX + pl2_speedX)*0.5;
+			var averageX : Number = (player1_newX + player2_newX) * 0.5;
+			_player1.x += (averageX - _player1.x) * 0.3;
 			
 			// animate ball
 			if (!_gameStarted)
