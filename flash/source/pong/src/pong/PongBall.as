@@ -23,7 +23,7 @@ package pong
 		{
 			_direction = new Point();
 		}
-
+		
 		public function addPlayers( left:Sprite, right:Sprite ):void 
 		{
 			_padLeft = left;
@@ -45,27 +45,27 @@ package pong
 		private function moveBall():void
 		{
 			//bounce to top and bottom
-			if (y <= 0 || y >= stage.stageHeight)
+			if (y <= 0 || y >= Pong.GAME_HEIGHT)
 			{
 				_direction.y = -(_direction.y);
 			}
 			
-			//if (x <= 0 || x >= stage.stageWidth)
+			//if (x <= 0 || x >= Pong.GAME_WIDTH)
 			//bounce to pads
 			if (hitTestObject(_padLeft) || hitTestObject(_padRight)) 
 			{
 				//speed up
 				_direction.x += _direction.x < 0 ? -EXTRA_SPEED_PER_BOUNCE : EXTRA_SPEED_PER_BOUNCE;
                 
-				x += x > stage.stageWidth / 2 ? -10 : 10;
+				x += x > Pong.GAME_WIDTH / 2 ? -10 : 10;
 
 				//bounce
 				_direction.x = -(_direction.x);
 			}
 			
-			if (x <= -10 || x >= stage.stageWidth + 10)
+			if (x <= -10 || x >= Pong.GAME_WIDTH + 10)
 			{
-				if(x < stage.width / 2)
+				if(x < Pong.GAME_WIDTH / 2)
 				{
 					_padLeft.dispatchEvent(new Event(SCORE_EVENT));
 				}
@@ -84,8 +84,8 @@ package pong
 		{
 			removeEventListener(Event.ENTER_FRAME,handleEnterFrame);
 			
-			x = stage.stageWidth / 2;
-			y = stage.stageHeight / 2;
+			x = Pong.GAME_WIDTH / 2;
+			y = Pong.GAME_HEIGHT / 2;
 			
 			if(_toRight)
 			{

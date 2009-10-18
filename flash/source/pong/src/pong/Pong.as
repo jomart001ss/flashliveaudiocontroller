@@ -21,7 +21,11 @@ package pong
 	public class Pong extends BaseVoiceApplication
 	{
 
+		public static const GAME_WIDTH:Number = 800;
+		public static const GAME_HEIGHT:Number = 600;
 		private static const MARGIN:Number = 10;
+		private static const SCORE_TO_WIN:Number = 10;
+		//
 		private var _padLeft:Pad;
 		private var _padRight:Pad;
 		private var _ball:PongBall;
@@ -29,17 +33,16 @@ package pong
 		private var _displayLeft:CounterDisplay;
 		private var _displayRight:CounterDisplay;
 		private var _winnerSign:WinnerSign;
-		private static const SCORE_TO_WIN:Number = 10;
 
 		public function Pong() 
 		{
-			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
+			addEventListener(Event.ADDED_TO_STAGE,addedToStage);
+			addEventListener(Event.REMOVED_FROM_STAGE,removedFromStage);
 		}
-		
-		private function removedFromStage(event : Event) : void
+
+		private function removedFromStage(event:Event):void
 		{
-			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
+			removeEventListener(Event.REMOVED_FROM_STAGE,removedFromStage);
 			if (_ball)
 			{
 				_ball.dispose();
@@ -47,9 +50,9 @@ package pong
 			}
 		}
 
-		private function addedToStage(event : Event) : void
+		private function addedToStage(event:Event):void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			removeEventListener(Event.ADDED_TO_STAGE,addedToStage);
 			
 			_background = addChild(new Background());
 			
