@@ -18,12 +18,13 @@ package pong
 		private var _toRight:Boolean;
 		//
 		public static const SCORE_EVENT:String = "pong_score";
+		private var up:Boolean;
 
 		public function PongBall() 
 		{
 			_direction = new Point();
 		}
-		
+
 		public function addPlayers( left:Sprite, right:Sprite ):void 
 		{
 			_padLeft = left;
@@ -34,7 +35,7 @@ package pong
 		{
 			_toRight = toRight;
 			reset();
-			addEventListener(Event.ENTER_FRAME,handleEnterFrame, false, 0, true);
+			addEventListener(Event.ENTER_FRAME,handleEnterFrame,false,0,true);
 		}
 
 		private function handleEnterFrame(event:Event):void
@@ -82,6 +83,7 @@ package pong
 
 		public function reset():void 
 		{
+			up = true;
 			removeEventListener(Event.ENTER_FRAME,handleEnterFrame);
 			
 			x = Pong.GAME_WIDTH / 2;
@@ -90,20 +92,34 @@ package pong
 			if(_toRight)
 			{
 				_direction.x = INITIAL_SPEED;
-				_direction.y = INITIAL_SPEED;
+				
+				if(up)
+				{
+					_direction.y = INITIAL_SPEED;
+				}
+				else
+				{
+					_direction.y = -INITIAL_SPEED;
+				}
 			}
 			else
 			{
 				_direction.x = -INITIAL_SPEED;
-				_direction.y = -INITIAL_SPEED;
+				if(up)
+				{
+					_direction.y = -INITIAL_SPEED;
+				}
+				else
+				{
+					_direction.y = INITIAL_SPEED;
+				}
 			}
+			up = !up;
 		}
 
-		public function dispose() : void
+		public function dispose():void
 		{
 			removeEventListener(Event.ENTER_FRAME,handleEnterFrame);
 		}
-		
-		
 	}
 }
