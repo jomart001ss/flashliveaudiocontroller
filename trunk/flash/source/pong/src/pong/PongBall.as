@@ -83,7 +83,6 @@ package pong
 
 		public function reset():void 
 		{
-			up = true;
 			removeEventListener(Event.ENTER_FRAME,handleEnterFrame);
 			
 			x = Pong.GAME_WIDTH / 2;
@@ -105,6 +104,7 @@ package pong
 			else
 			{
 				_direction.x = -INITIAL_SPEED;
+				
 				if(up)
 				{
 					_direction.y = -INITIAL_SPEED;
