@@ -1,5 +1,7 @@
 package pong 
 {
+	import util.Random;
+
 	import fla.pong.Ball;
 
 	import flash.display.Sprite;
@@ -92,7 +94,7 @@ package pong
 			{
 				_direction.x = INITIAL_SPEED;
 				
-				if(up)
+				if(Random.between(0,1) == 1)
 				{
 					_direction.y = INITIAL_SPEED;
 				}
@@ -105,7 +107,7 @@ package pong
 			{
 				_direction.x = -INITIAL_SPEED;
 				
-				if(up)
+				if(Random.between(0,1) == 1)
 				{
 					_direction.y = -INITIAL_SPEED;
 				}
